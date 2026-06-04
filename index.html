@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sarvesh R — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f5f2;
+      --surface: #ffffff;
+      --border: #e8e4df;
+      --text: #1a1814;
+      --muted: #8a8480;
+      --accent: #2d5be3;
+      --accent-light: #eef1fd;
+      --tag-bg: #efefed;
+      --tag-text: #4a4744;
+      --green: #1a8a5a;
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+      --serif: 'DM Serif Display', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(247,245,242,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 60px;
+    }
+    .nav-logo {
+      font-family: var(--mono); font-size: 14px; font-weight: 500;
+      color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 13px; font-weight: 400; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+      font-family: var(--sans); letter-spacing: 0.02em;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 5vw; max-width: 1100px; margin: 0 auto; }
+    section:first-of-type { padding-top: 140px; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 90vh; display: flex; flex-direction: column;
+      justify-content: center; position: relative; padding-top: 80px;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 12px; color: var(--accent);
+      background: var(--accent-light); border: 1px solid #c5d0f5;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 32px;
+      width: fit-content; animation: fadeUp 0.6s ease both;
+    }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: block; }
+    h1 {
+      font-family: var(--serif); font-size: clamp(52px, 7vw, 88px);
+      font-weight: 400; line-height: 1.05; letter-spacing: -0.02em;
+      color: var(--text); animation: fadeUp 0.6s 0.1s ease both;
+    }
+    h1 em { font-style: italic; color: var(--muted); }
+    .hero-sub {
+      margin-top: 24px; font-size: 17px; font-weight: 300;
+      color: var(--muted); max-width: 480px; line-height: 1.7;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-cta {
+      margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .btn {
+      padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500;
+      cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary { background: var(--text); color: #fff; border: 1.5px solid var(--text); }
+    .btn-primary:hover { background: #2d2a26; }
+    .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--text); background: var(--surface); }
+    .hero-stats {
+      margin-top: 72px; display: flex; gap: 48px;
+      border-top: 1px solid var(--border); padding-top: 36px;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    .stat-val { font-family: var(--serif); font-size: 36px; line-height: 1; color: var(--text); }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; font-family: var(--mono); }
+
+    /* ── DIVIDER ── */
+    .section-label {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
+      display: flex; align-items: center; gap: 12px; margin-bottom: 56px;
+    }
+    .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--border); }
+    h2 {
+      font-family: var(--serif); font-size: clamp(32px, 4vw, 48px);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--text);
+    }
+
+    /* ── ABOUT ── */
+    #about .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .about-text p {
+      font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 18px;
+    }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .about-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px; position: relative; overflow: hidden;
+    }
+    .about-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), #7fa3ff);
+    }
+    .about-card-row {
+      display: flex; align-items: flex-start; gap: 16px; padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-card-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .about-icon { font-size: 18px; margin-top: 2px; }
+    .about-row-label { font-size: 11px; font-family: var(--mono); color: var(--muted); margin-bottom: 2px; letter-spacing: 0.06em; }
+    .about-row-val { font-size: 14px; font-weight: 500; color: var(--text); }
+
+    /* ── SKILLS ── */
+    #skills { background: transparent; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .skill-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px 28px; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .skill-card:hover { border-color: #c5d0f5; box-shadow: 0 4px 24px rgba(45,91,227,0.06); }
+    .skill-card-title {
+      font-size: 12px; font-family: var(--mono); text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--accent); margin-bottom: 16px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      background: var(--tag-bg); color: var(--tag-text); font-size: 12px;
+      font-family: var(--mono); padding: 4px 10px; border-radius: 4px;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 32px; display: flex; flex-direction: column;
+      gap: 16px; transition: all 0.25s; cursor: default;
+    }
+    .project-card:hover {
+      border-color: #c5d0f5; transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(45,91,227,0.08);
+    }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; }
+    .project-icon { font-size: 26px; }
+    .project-links { display: flex; gap: 8px; }
+    .project-link {
+      font-size: 11px; font-family: var(--mono); color: var(--muted);
+      text-decoration: none; border: 1px solid var(--border);
+      padding: 3px 9px; border-radius: 5px; transition: all 0.2s;
+    }
+    .project-link:hover { border-color: var(--accent); color: var(--accent); }
+    .project-name { font-size: 18px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+    .project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; flex: 1; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid; grid-template-columns: 180px 1fr;
+      gap: 32px; padding: 36px 0; border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-meta { padding-top: 3px; }
+    .exp-period { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .exp-badge {
+      display: inline-block; font-size: 11px; padding: 3px 10px;
+      border-radius: 20px; font-family: var(--mono);
+    }
+    .badge-active { background: #e8f7f0; color: var(--green); }
+    .badge-done { background: var(--tag-bg); color: var(--muted); }
+    .exp-role { font-size: 19px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; margin-bottom: 4px; }
+    .exp-org { font-size: 14px; color: var(--accent); margin-bottom: 12px; font-weight: 500; }
+    .exp-desc { font-size: 14px; color: var(--muted); line-height: 1.8; }
+    .exp-bullets { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .exp-bullets li {
+      font-size: 13.5px; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.6;
+    }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--border); }
+
+    /* ── CONTACT ── */
+    #contact { padding-bottom: 120px; }
+    .contact-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 64px; max-width: 640px;
+      position: relative; overflow: hidden;
+    }
+    .contact-box::after {
+      content: ''; position: absolute; bottom: -40px; right: -40px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, #eef1fd 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .contact-box h2 { margin-bottom: 16px; }
+    .contact-box p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 36px; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 20px; border-radius: 8px; font-size: 13.5px; font-weight: 500;
+      text-decoration: none; transition: all 0.2s; border: 1.5px solid var(--border);
+      color: var(--text); background: var(--bg);
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+    .contact-link-primary { background: var(--text); color: #fff; border-color: var(--text); }
+    .contact-link-primary:hover { background: #2d2a26; color: #fff; border-color: #2d2a26; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border); padding: 28px 5vw;
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 1100px; margin: 0 auto; flex-wrap: wrap; gap: 12px;
+    }
+    footer p { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      #about .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .exp-item { grid-template-columns: 1fr; gap: 8px; }
+      .hero-stats { gap: 32px; }
+      .contact-box { padding: 36px 28px; }
+      nav { padding: 0 4vw; }
+      .nav-links { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">sarvesh<span>.dev</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">Available for internships &amp; collaborations</div>
+  <h1>Sarvesh R<br/><em>Full-Stack Developer</em></h1>
+  <p class="hero-sub">CSE student at SCTCE · Building apps with Flutter, Flask &amp; Supabase · Turning ideas into working software.</p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#projects">View Projects →</a>
+    <a class="btn btn-outline" href="https://github.com/sarveshbm07" target="_blank">GitHub ↗</a>
+    <a class="btn btn-outline" href="https://linkedin.com/in/sarvesh-r-575117306" target="_blank">LinkedIn ↗</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-val">8.75</div>
+      <div class="stat-label">CGPA (KTU)</div>
+    </div>
+    <div>
+      <div class="stat-val">3+</div>
+      <div class="stat-label">Live Projects</div>
+    </div>
+    <div>
+      <div class="stat-val">'28</div>
+      <div class="stat-label">B.Tech Grad</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 — About</div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <h2>Hey, I'm Sarvesh.</h2>
+      <br/>
+      <p>I'm a <strong>first-year Computer Science &amp; Engineering student</strong> at Sree Chitra Thirunal College of Engineering, Thiruvananthapuram. I build full-stack applications with a strong focus on clean architecture and real-world impact.</p>
+      <p>Currently serving as <strong>Webmaster of the ISTE Student Chapter</strong> at SCTCE, I bridge technical and organizational work — from developing club platforms to representing the chapter's online presence.</p>
+      <p>I love working at the intersection of backend logic and polished UIs — whether it's a <strong>Flutter app with Supabase sync</strong>, a Flask web app, or a competitive hackathon pitch.</p>
+    </div>
+    <div class="about-card reveal">
+      <div class="about-card-row">
+        <div class="about-icon">🎓</div>
+        <div>
+          <div class="about-row-label">Education</div>
+          <div class="about-row-val">B.Tech CSE — SCTCE, KTU</div>
+        </div>
+      </div>
+      <div class="about-card-row">
+        <div class="about-icon">📍</div>
+        <div>
+          <div class="about-row-label">Location</div>
+          <div class="about-row-val">Thiruvananthapuram, Kerala</div>
+        </div>
+      </div>
+      <div class="about-card-row">
+        <div class="about-icon">📅</div>
+        <div>
+          <div class="about-row-label">Batch</div>
+          <div class="about-row-val">2024 – 2028</div>
+        </div>
+      </div>
+      <div class="about-card-row">
+        <div class="about-icon">⚡</div>
+        <div>
+          <div class="about-row-label">Interests</div>
+          <div class="about-row-val">Full-Stack Dev · Tech Quizzes · Gaming</div>
+        </div>
+      </div>
+      <div class="about-card-row">
+        <div class="about-icon">🔗</div>
+        <div>
+          <div class="about-row-label">GitHub</div>
+          <div class="about-row-val">github.com/sarveshbm07</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">02 — Skills</div>
+  <h2 style="margin-bottom:48px;">What I work with</h2>
+  <div class="skills-grid reveal">
+    <div class="skill-card">
+      <div class="skill-card-title">Languages</div>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Dart</span>
+        <span class="tag">Java</span>
+        <span class="tag">C</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">SQL</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Frontend &amp; Mobile</div>
+      <div class="skill-tags">
+        <span class="tag">Flutter</span>
+        <span class="tag">React</span>
+        <span class="tag">HTML/CSS</span>
+        <span class="tag">Tailwind</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Backend &amp; APIs</div>
+      <div class="skill-tags">
+        <span class="tag">Flask</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">Webhooks</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Databases &amp; Cloud</div>
+      <div class="skill-tags">
+        <span class="tag">Supabase</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Oracle SQL</span>
+        <span class="tag">Cloudflare R2</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Tools &amp; DevOps</div>
+      <div class="skill-tags">
+        <span class="tag">Git</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">VS Code</span>
+        <span class="tag">Linux</span>
+        <span class="tag">Postman</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">CS Fundamentals</div>
+      <div class="skill-tags">
+        <span class="tag">DSA</span>
+        <span class="tag">OS</span>
+        <span class="tag">DBMS</span>
+        <span class="tag">COA</span>
+        <span class="tag">Networks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">03 — Projects</div>
+  <h2 style="margin-bottom:48px;">Things I've built</h2>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon">🎓</div>
+        <div class="project-links">
+          <a class="project-link" href="https://github.com/sarveshbm07" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="project-name">Mentron</div>
+      <div class="project-desc">Student learning platform with Flutter/Supabase. Features bidirectional sync with Lynq event management via a Node.js webhook bridge. Real-time data flow across two apps.</div>
+      <div class="project-stack">
+        <span class="tag">Flutter</span><span class="tag">Supabase</span><span class="tag">Node.js</span><span class="tag">Webhooks</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon">🎟️</div>
+        <div class="project-links">
+          <a class="project-link" href="https://github.com/sarveshbm07" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="project-name">Movie Ticket Booking</div>
+      <div class="project-desc">Full-stack web app for movie ticket booking using Flask and Oracle SQL. Handles seat selection, booking flow, and transaction management with PL/SQL packages.</div>
+      <div class="project-stack">
+        <span class="tag">Flask</span><span class="tag">Oracle SQL</span><span class="tag">PL/SQL</span><span class="tag">Python</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon">🗳️</div>
+        <div class="project-links">
+          <a class="project-link" href="https://github.com/sarveshbm07" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="project-name">Online Voting System</div>
+      <div class="project-desc">Secure digital voting platform built with Java and SQL. Implements role-based access, voter authentication, and real-time result tallying.</div>
+      <div class="project-stack">
+        <span class="tag">Java</span><span class="tag">SQL</span><span class="tag">JDBC</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon">📝</div>
+        <div class="project-links">
+          <a class="project-link" href="https://github.com/sarveshbm07" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="project-name">FairNotes</div>
+      <div class="project-desc">Notes-sharing platform with a leaderboard and anonymous Q&amp;A. Built with Python/Flask and Cloudflare R2 for file storage, plus Supabase Postgres for the backend.</div>
+      <div class="project-stack">
+        <span class="tag">Flask</span><span class="tag">Supabase</span><span class="tag">Cloudflare R2</span><span class="tag">React</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon">🐛</div>
+      </div>
+      <div class="project-name">BranchTrue</div>
+      <div class="project-desc">Startup pitch for IEEE "Elevér 6.0" Bug to Business competition. Based on a Swiggy silent branch-switch bug — pitched a SaaS tool to detect and monitor silent logic errors in production apps.</div>
+      <div class="project-stack">
+        <span class="tag">Startup Pitch</span><span class="tag">IEEE Competition</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon">📅</div>
+      </div>
+      <div class="project-name">Lynq</div>
+      <div class="project-desc">Event management app for the ISTE club at SCTCE. Syncs in real-time with Mentron for seamless student engagement. Built as part of the ISTE Webmaster role.</div>
+      <div class="project-stack">
+        <span class="tag">Flutter</span><span class="tag">Supabase</span><span class="tag">ISTE SCTCE</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">04 — Experience</div>
+  <h2 style="margin-bottom:48px;">Where I've contributed</h2>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">2026 — Present</div>
+        <span class="exp-badge badge-active">Active</span>
+      </div>
+      <div>
+        <div class="exp-role">Webmaster</div>
+        <div class="exp-org">ISTE Student Chapter, SCTCE</div>
+        <ul class="exp-bullets">
+          <li>Managing and developing the chapter's web platforms including Mentron and Lynq.</li>
+          <li>Implementing Supabase-backed real-time sync between club apps using a webhook Node.js bridge.</li>
+          <li>Organizing EXECOM activities and coordinating technical events for the chapter.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">2026</div>
+        <span class="exp-badge badge-done">Internship Applied</span>
+      </div>
+      <div>
+        <div class="exp-role">Python Full Stack Developer Intern</div>
+        <div class="exp-org">Zentrix Technology</div>
+        <ul class="exp-bullets">
+          <li>Applied for a full-stack internship role focusing on Python, Flask, and React development.</li>
+          <li>Highlighted projects: Mentron (Flutter/Supabase), Movie Ticket Booking System, and Online Voting System.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">2026</div>
+        <span class="exp-badge badge-done">Competition</span>
+      </div>
+      <div>
+        <div class="exp-role">Participant — Bug to Business</div>
+        <div class="exp-org">IEEE Computer Society Kerala Chapter · Elevér 6.0</div>
+        <ul class="exp-bullets">
+          <li>Developed startup pitch "BranchTrue" around a Swiggy silent branch-switch production bug.</li>
+          <li>Proposed a SaaS monitoring tool to detect silent logic failures in live applications.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">2024 — Present</div>
+        <span class="exp-badge badge-active">Active</span>
+      </div>
+      <div>
+        <div class="exp-role">B.Tech CSE Student</div>
+        <div class="exp-org">Sree Chitra Thirunal College of Engineering · KTU</div>
+        <ul class="exp-bullets">
+          <li>CGPA: 8.75 — Coursework in DSA, OS, COA, DBMS, and Advanced Mathematics.</li>
+          <li>Enrolled in NPTEL "Data Analytics with Python" (IIT Roorkee via SWAYAM).</li>
+          <li>COA group project on RISC-V data hazard mitigation using the Ripes simulator.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">05 — Contact</div>
+  <div class="contact-box reveal">
+    <h2>Let's work together.</h2>
+    <p>I'm open to internship opportunities, freelance projects, and collaborations. Feel free to reach out through any of the channels below!</p>
+    <div class="contact-links">
+      <a class="contact-link contact-link-primary" href="mailto:sarveshbm07@gmail.com">✉️ Email Me</a>
+      <a class="contact-link" href="https://linkedin.com/in/sarvesh-r-575117306" target="_blank">💼 LinkedIn</a>
+      <a class="contact-link" href="https://github.com/sarveshbm07" target="_blank">🐙 GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Sarvesh R — Built with HTML &amp; CSS</p>
+  <p>SCTCE · KTU · Batch 2024–28</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const els = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  els.forEach(el => observer.observe(el));
+
+  // Active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : '';
+    });
+  });
+</script>
+</body>
+</html>
